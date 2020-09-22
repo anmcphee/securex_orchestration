@@ -1,0 +1,119 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01IUPC0PNSHIP0dqeCrfeiDpAZFvF8ilF9I",
+    "name": "ISE - Add User to ISE",
+    "title": "ISE - Add User to ISE",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "identity_group",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IUPCN2UOD0P0UBdtq8klyF7C4pQz7gCqj",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "email",
+          "type": "datatype.string",
+          "is_required": true
+        },
+        "unique_name": "variable_workflow_01IUQWS2J0HL61I8nvHMKDP75NlxzFaChUz",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "user",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01IUPCHMPSKZE5hDgMWja3rWiSYBBjJY0gX",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Web Service",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": false,
+      "display_name": "ISE - Add User to ISE",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": false,
+        "execute_on_workflow_target": false,
+        "no_target": true,
+        "specify_on_workflow_start": false
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01IUPCSHD7UIO50FIRNH7WzoO1p2xrpofGO",
+        "name": "HTTP Request",
+        "title": "HTTP Request",
+        "type": "web-service.http_request",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "allow_auto_redirect": true,
+          "body": "{\n  \"InternalUser\": {\n    \"name\": \"$workflow.definition_workflow_01IUPC0PNSHIP0dqeCrfeiDpAZFvF8ilF9I.input.variable_workflow_01IUPCHMPSKZE5hDgMWja3rWiSYBBjJY0gX$\",\n    \"password\": \"1Security!\",\n    \"email\": \"$workflow.definition_workflow_01IUPC0PNSHIP0dqeCrfeiDpAZFvF8ilF9I.input.variable_workflow_01IUQWS2J0HL61I8nvHMKDP75NlxzFaChUz$\",\n    \"identityGroups\": \"$workflow.definition_workflow_01IUPC0PNSHIP0dqeCrfeiDpAZFvF8ilF9I.input.variable_workflow_01IUPCN2UOD0P0UBdtq8klyF7C4pQz7gCqj$\"\n  }\n}",
+          "content_type": "application/json",
+          "continue_on_error_status_code": false,
+          "continue_on_failure": false,
+          "display_name": "HTTP Request",
+          "method": "POST",
+          "relative_url": "/ISE/config/internaluser",
+          "runtime_user": {
+            "override_target_runtime_user": false,
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_01IUJXSBKMV352ftaSxh6mNHsroh5xDzPNb"
+          }
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "targets": {
+    "definition_target_01IUJXSBKMV352ftaSxh6mNHsroh5xDzPNb": {
+      "unique_name": "definition_target_01IUJXSBKMV352ftaSxh6mNHsroh5xDzPNb",
+      "name": "Proxy",
+      "title": "Proxy",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "Proxy",
+        "host": "12.151.35.207",
+        "ignore_proxy": false,
+        "no_runtime_user": true,
+        "port": 8080,
+        "protocol": "http"
+      }
+    }
+  }
+}

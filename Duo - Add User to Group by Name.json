@@ -1,0 +1,657 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi",
+    "name": "Duo - Add User to Group by Name",
+    "title": "Duo - Add User to Group by Name",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.secure_string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "duo_secret_key",
+          "type": "datatype.secure_string",
+          "is_required": true
+        },
+        "unique_name": "variable_workflow_01I9DQN7YHARH6lu2OLhbngcu1G2krhkrs9",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "/admin/v1/groups",
+          "scope": "local",
+          "name": "path",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01I9DQN7YHBXG4sB0vhBUcfUuGFsaG62sk5",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "duo_username",
+          "type": "datatype.string",
+          "is_required": true
+        },
+        "unique_name": "variable_workflow_01I9DQN7YHD385E5ZPGGACdvFO8cOSwymoZ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "duo_group_name",
+          "type": "datatype.string",
+          "is_required": true
+        },
+        "unique_name": "variable_workflow_01I9DQN7YHE8940lK5SIOG7kAJ2xA8bYv6M",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "output",
+          "name": "duo_group_id",
+          "type": "datatype.string",
+          "is_required": false
+        },
+        "unique_name": "variable_workflow_01I9DQN7YH3JV1qV20ezkWEUdhmFJqLZx3g",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "duo_hostname",
+          "type": "datatype.string",
+          "is_required": true
+        },
+        "unique_name": "variable_workflow_01I9DQN7YH8B34SDSiEFIvVyL9rL4N6nZZu",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "duo_integration_key",
+          "type": "datatype.string",
+          "is_required": true
+        },
+        "unique_name": "variable_workflow_01I9DQN7YH9LJ4WUhDKT4scqZSXLpMr1u3f",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "atomic_group": "Cisco Duo Security",
+        "is_atomic": true
+      },
+      "delete_workflow_instance": true,
+      "display_name": "Duo - Add User to Group by Name",
+      "runtime_user": {
+        "override_target_runtime_user": false,
+        "specify_on_workflow_start": false,
+        "target_default": true
+      },
+      "target": {
+        "target_type": "web-service.endpoint",
+        "specify_on_workflow_start": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_01I9DR0EIULH07EQ8AGiYvGkpekOiOZE6OP",
+        "name": "Group",
+        "title": "Get DUO ID from DUO name",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Get DUO ID from DUO name",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_01I9DRBS6Q0022ws0lVXUd0e6yR8bHODcDv",
+            "name": "Execute Python Script",
+            "title": "Get request signature",
+            "type": "python3.script",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "Get request signature",
+              "script": "$global.variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1.global.variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1$",
+              "script_arguments": [
+                "GET",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH8B34SDSiEFIvVyL9rL4N6nZZu$",
+                "/admin/v1/users",
+                "{\"username\":\"$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YHD385E5ZPGGACdvFO8cOSwymoZ$\"}",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YHARH6lu2OLhbngcu1G2krhkrs9$",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH9LJ4WUhDKT4scqZSXLpMr1u3f$"
+              ],
+              "script_queries": [
+                {
+                  "script_query": "now",
+                  "script_query_name": "Date",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "Authorization",
+                  "script_query_name": "Authorization",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "canon",
+                  "script_query_name": "canon",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "params",
+                  "script_query_name": "params_enc",
+                  "script_query_type": "secure_string"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01I9DTADQO1Q740FGFjWczQrPRjeQWet4Jj",
+            "name": "HTTP Request",
+            "title": "HTTP Request",
+            "type": "web-service.http_request",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "allow_auto_redirect": true,
+              "continue_on_error_status_code": false,
+              "continue_on_failure": false,
+              "custom_headers": [
+                {
+                  "name": "Date",
+                  "value": "$activity.definition_activity_01I9DRBS6Q0022ws0lVXUd0e6yR8bHODcDv.output.script_queries.Date$"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "$activity.definition_activity_01I9DRBS6Q0022ws0lVXUd0e6yR8bHODcDv.output.script_queries.Authorization$"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/x-www-form-urlencoded"
+                },
+                {
+                  "name": "Host",
+                  "value": "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH8B34SDSiEFIvVyL9rL4N6nZZu$"
+                }
+              ],
+              "display_name": "HTTP Request",
+              "method": "GET",
+              "relative_url": "/admin/v1/users?$activity.definition_activity_01I9DRBS6Q0022ws0lVXUd0e6yR8bHODcDv.output.script_queries.params_enc$",
+              "runtime_user": {
+                "override_target_runtime_user": false,
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "override_workflow_target": false,
+                "override_workflow_target_group_criteria": false,
+                "use_workflow_target": true,
+                "use_workflow_target_group": false
+              }
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01I9DURZGEL6L5ACOHdYn8m6hlKhEEVz0Nt",
+            "name": "JSONPath Query",
+            "title": "JSONPath Query",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "JSONPath Query",
+              "input_json": "$activity.definition_activity_01I9DTADQO1Q740FGFjWczQrPRjeQWet4Jj.output.response_body$",
+              "jsonpath_queries": [
+                {
+                  "jsonpath_query": "response[0].user_id",
+                  "jsonpath_query_name": "user_id",
+                  "jsonpath_query_type": "string"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01I9DQNUGUTEG51f6zCYOy91jWarJvwZ6w6",
+        "name": "Group",
+        "title": "Get All Groups",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Get All Groups",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_01I9DQO2BVKX268wJMURg63GbsrdAcbmvOC",
+            "name": "Execute Python Script",
+            "title": "Generate request signature",
+            "type": "python3.script",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "Generate request signature",
+              "script": "$global.variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1.global.variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1$",
+              "script_arguments": [
+                "GET",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH8B34SDSiEFIvVyL9rL4N6nZZu$",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.local.variable_workflow_01I9DQN7YHBXG4sB0vhBUcfUuGFsaG62sk5$",
+                "{}",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YHARH6lu2OLhbngcu1G2krhkrs9$",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH9LJ4WUhDKT4scqZSXLpMr1u3f$"
+              ],
+              "script_queries": [
+                {
+                  "script_query": "now",
+                  "script_query_name": "Date",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "Authorization",
+                  "script_query_name": "Authorization",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "canon",
+                  "script_query_name": "canon",
+                  "script_query_type": "secure_string"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01I9DQOAT5LJ72p7PzvgRmYjsNdAFk1JPEG",
+            "name": "HTTP Request",
+            "title": "HTTP Request",
+            "type": "web-service.http_request",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "allow_auto_redirect": true,
+              "continue_on_error_status_code": false,
+              "continue_on_failure": false,
+              "custom_headers": [
+                {
+                  "name": "Date",
+                  "value": "$activity.definition_activity_01I9DQO2BVKX268wJMURg63GbsrdAcbmvOC.output.script_queries.Date$"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "$activity.definition_activity_01I9DQO2BVKX268wJMURg63GbsrdAcbmvOC.output.script_queries.Authorization$"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/x-www-form-urlencoded"
+                },
+                {
+                  "name": "Host",
+                  "value": "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH8B34SDSiEFIvVyL9rL4N6nZZu$"
+                }
+              ],
+              "display_name": "HTTP Request",
+              "method": "GET",
+              "relative_url": "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.local.variable_workflow_01I9DQN7YHBXG4sB0vhBUcfUuGFsaG62sk5$",
+              "runtime_user": {
+                "override_target_runtime_user": false,
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "override_workflow_target": false,
+                "override_workflow_target_group_criteria": false,
+                "use_workflow_target": true,
+                "use_workflow_target_group": false
+              }
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01I9DQOIXWEZQ77ui9OJw8G2ymen2xB5E6b",
+            "name": "JSONPath Query",
+            "title": "Get response",
+            "type": "corejava.jsonpathquery",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "Get response",
+              "input_json": "$activity.definition_activity_01I9DQOAT5LJ72p7PzvgRmYjsNdAFk1JPEG.output.response_body$",
+              "jsonpath_queries": [
+                {
+                  "jsonpath_query": "response",
+                  "jsonpath_query_name": "response",
+                  "jsonpath_query_type": "string"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01I9DQOQ6YOWZ6HWFSOF8e4NVjUpJ8KbLr9",
+        "name": "Group",
+        "title": "Get Group ID from name",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Get Group ID from name",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_01I9DQOYAM7B10k2unayf008ZDdUO4qi0rw",
+            "name": "Split String",
+            "title": "Split String",
+            "type": "core.splitstring",
+            "base_type": "activity",
+            "properties": {
+              "boundaries": [
+                {
+                  "boundary": "group_id\":\""
+                }
+              ],
+              "continue_on_failure": false,
+              "display_name": "Split String",
+              "input_string": "$activity.definition_activity_01I9DQOIXWEZQ77ui9OJw8G2ymen2xB5E6b.output.jsonpath_queries.response$",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01I9DQP5SH58U1cpvL7ClkGDh6ovd1KEG8s",
+            "name": "For Each",
+            "title": "For Each Group in Groups",
+            "type": "logic.for_each",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "For Each Group in Groups",
+              "skip_execution": false,
+              "source_array": "$activity.definition_activity_01I9DQOYAM7B10k2unayf008ZDdUO4qi0rw.output.parts$"
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_01I9DQPJF5DQJ6pBP5nRBcz3o1iiJzz9h3I",
+                "name": "Find String",
+                "title": "Find String",
+                "type": "core.find_string",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Find String",
+                  "searched_string": "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YHE8940lK5SIOG7kAJ2xA8bYv6M$",
+                  "skip_execution": false,
+                  "source": "$activity.definition_activity_01I9DQP5SH58U1cpvL7ClkGDh6ovd1KEG8s.input.source_array[@]$"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_01I9DQQ1IW5BZ526dbdBp4Ko4kEmJkEFYVt",
+                "name": "Condition Block",
+                "title": "Did we find the group?",
+                "type": "logic.if_else",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Did we find the group?",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_01I9DQQ827A5Y39wjQEr7I5StnhIvDOyyie",
+                    "name": "Condition Branch",
+                    "title": "Yes",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_01I9DQPJF5DQJ6pBP5nRBcz3o1iiJzz9h3I.output.has_match$",
+                        "operator": "eq",
+                        "right_operand": true
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "Yes",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_01I9DQQDVKW1E6H68trI8raXtZiRvteC7DH",
+                        "name": "Substring",
+                        "title": "Get Group ID from string",
+                        "type": "core.substring",
+                        "base_type": "activity",
+                        "properties": {
+                          "begin": 0,
+                          "continue_on_failure": false,
+                          "display_name": "Get Group ID from string",
+                          "end": 20,
+                          "skip_execution": false,
+                          "source": "$activity.definition_activity_01I9DQP5SH58U1cpvL7ClkGDh6ovd1KEG8s.input.source_array[@]$"
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_01I9DQQLNEJ9F4jNTdw7bPwsRGcrfykJ6w0",
+                        "name": "Set Variables",
+                        "title": "Set Variables",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Set Variables",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.output.variable_workflow_01I9DQN7YH3JV1qV20ezkWEUdhmFJqLZx3g$",
+                              "variable_value_new": "$activity.definition_activity_01I9DQQDVKW1E6H68trI8raXtZiRvteC7DH.output.substring$"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  },
+                  {
+                    "unique_name": "definition_activity_01I9DQQV2FD945ACPr6nghKJnGokQM84Dbe",
+                    "name": "Condition Branch",
+                    "title": "No",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_01I9DQPJF5DQJ6pBP5nRBcz3o1iiJzz9h3I.output.has_match$",
+                        "operator": "eq",
+                        "right_operand": false
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "No",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_01I9DQR0PPHM44s2WskbRHzAJ5gnM22M44A",
+                        "name": "Continue",
+                        "title": "Continue",
+                        "type": "logic.continue",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Continue",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_01I9DQR6P0VW27KTOW6qCxSSiHuKHNQTGwJ",
+        "name": "Group",
+        "title": "Group",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Group",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_01I9DQRF42AUQ0dqDObYT7Mp4x74oX8vVp4",
+            "name": "Execute Python Script",
+            "title": "Generate request signature",
+            "type": "python3.script",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "Generate request signature",
+              "script": "$global.variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1.global.variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1$",
+              "script_arguments": [
+                "POST",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH8B34SDSiEFIvVyL9rL4N6nZZu$",
+                "/admin/v1/users/$activity.definition_activity_01I9DURZGEL6L5ACOHdYn8m6hlKhEEVz0Nt.output.jsonpath_queries.user_id$/groups",
+                "{\"group_id\":\"$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.output.variable_workflow_01I9DQN7YH3JV1qV20ezkWEUdhmFJqLZx3g$\"}",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YHARH6lu2OLhbngcu1G2krhkrs9$",
+                "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH9LJ4WUhDKT4scqZSXLpMr1u3f$"
+              ],
+              "script_queries": [
+                {
+                  "script_query": "now",
+                  "script_query_name": "Date",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "Authorization",
+                  "script_query_name": "Authorization",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "canon",
+                  "script_query_name": "canon",
+                  "script_query_type": "secure_string"
+                },
+                {
+                  "script_query": "params",
+                  "script_query_name": "params_enc",
+                  "script_query_type": "secure_string"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_01I9DQRLZ2JQ95ob29mHs099Kq7mU68boqQ",
+            "name": "HTTP Request",
+            "title": "HTTP Request",
+            "type": "web-service.http_request",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "allow_auto_redirect": true,
+              "body": "$activity.definition_activity_01I9DQRF42AUQ0dqDObYT7Mp4x74oX8vVp4.output.script_queries.params_enc$",
+              "continue_on_error_status_code": false,
+              "continue_on_failure": false,
+              "custom_headers": [
+                {
+                  "name": "Date",
+                  "value": "$activity.definition_activity_01I9DQRF42AUQ0dqDObYT7Mp4x74oX8vVp4.output.script_queries.Date$"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "$activity.definition_activity_01I9DQRF42AUQ0dqDObYT7Mp4x74oX8vVp4.output.script_queries.Authorization$"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/x-www-form-urlencoded"
+                },
+                {
+                  "name": "Host",
+                  "value": "$workflow.definition_workflow_01I9DQN8BMZO44FTJAm41mGVqfvmi7125Hi.input.variable_workflow_01I9DQN7YH8B34SDSiEFIvVyL9rL4N6nZZu$"
+                }
+              ],
+              "display_name": "HTTP Request",
+              "method": "POST",
+              "relative_url": "/admin/v1/users/$activity.definition_activity_01I9DURZGEL6L5ACOHdYn8m6hlKhEEVz0Nt.output.jsonpath_queries.user_id$/groups",
+              "runtime_user": {
+                "override_target_runtime_user": false,
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "override_workflow_target": false,
+                "override_workflow_target_group_criteria": false,
+                "use_workflow_target": true,
+                "use_workflow_target_group": false
+              }
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_1BMfMXSnJMyt5Ihqi7rWJr5N8cf"
+    ]
+  },
+  "variables": {
+    "variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1": {
+      "unique_name": "variable_01I8RZXUGNU894x42hqpE7u2Iqv1Ql83ug1",
+      "properties": {
+        "value": "import sys, json, base64, email.utils, hmac, hashlib, urllib, codecs\n\n(method,host,path,params,skey,ikey) = sys.argv[1:]\nparams = json.loads(params)\n\n\"\"\"\nReturn HTTP Basic Authentication (\"Authorization\" and \"Date\") headers.\nmethod, host, path: strings from request\nparams: dict of request parameters\nskey: secret key\nikey: integration key\n\"\"\"\n\n# create canonical string\nnow = email.utils.formatdate()\ncanon = [now, method.upper(), host.lower(), path]\nargs = []\nfor key in sorted(params.keys()):\n   val = params[key]\n   if isinstance(val, str):\n      val = val.encode(\"utf-8\")\n      args.append('%s=%s' % (urllib.parse.quote(key, '~'), urllib.parse.quote(val, '~')))\n   if isinstance(val, int):\n      args.append('%s=%i' % (urllib.parse.quote(key, '~'), val))\nparams = '&'.join(args)\ncanon.append(params)\ncanon = '\\n'.join(canon)\n\n# sign canonical string\nsig = hmac.new(codecs.encode(skey,'latin-1'), codecs.encode(canon), hashlib.sha1)\nauth = '%s:%s' % (ikey, sig.hexdigest())\n\nAuthorization = 'Basic %s' % base64.b64encode(codecs.encode(auth)).decode('utf-8')",
+        "scope": "global",
+        "name": "Generate DUO request signature - Python",
+        "type": "datatype.string",
+        "is_required": false
+      },
+      "object_type": "variable"
+    }
+  }
+}
